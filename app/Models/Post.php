@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Auth;
 
 #[Fillable(['title', 'body'])]
-#[UsePolicy(PostPolicy::class)]
 class Post extends Model
 {
     public function user(): BelongsTo
