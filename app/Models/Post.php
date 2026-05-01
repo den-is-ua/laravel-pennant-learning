@@ -11,24 +11,8 @@ use Illuminate\Support\Facades\Auth;
 #[Fillable(['title', 'body'])]
 class Post extends Model
 {
-    /**
-     * @return BelongsTo<User, Post>
-     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
-    }
-
-    /**
-     * Restrict implicit route `{post}` resolution to rows owned by the current user.
-     *
-     * @param  Builder  $query
-     */
-    public function resolveRouteBindingQuery($query, $value, $field = null)
-    {
-        $field ??= $this->getRouteKeyName();
-
-        return parent::resolveRouteBindingQuery($query, $value, $field)
-            ->where('user_id', Auth::id());
     }
 }
