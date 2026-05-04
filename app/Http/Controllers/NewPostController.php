@@ -35,21 +35,16 @@ class NewPostController extends Controller
 
     public function show(NewPost $newPost): View
     {
-        abort_unless($newPost->user_id === auth()->id(), 403);
-
         return view('new-posts.show', compact('newPost'));
     }
 
     public function edit(NewPost $newPost): View
     {
-        abort_unless($newPost->user_id === auth()->id(), 403);
-
         return view('new-posts.edit', compact('newPost'));
     }
 
     public function update(UpdateNewPostRequest $request, NewPost $newPost): RedirectResponse
     {
-        abort_unless($newPost->user_id === auth()->id(), 403);
         $newPost->update($request->validated());
 
         return redirect()->route('new-posts.show', $newPost)->with('status', 'new-post-updated');
@@ -57,7 +52,6 @@ class NewPostController extends Controller
 
     public function destroy(NewPost $newPost): RedirectResponse
     {
-        abort_unless($newPost->user_id === auth()->id(), 403);
         $newPost->delete();
 
         return redirect()->route('new-posts.index')->with('status', 'new-post-deleted');
