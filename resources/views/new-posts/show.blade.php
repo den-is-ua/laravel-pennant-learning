@@ -5,14 +5,19 @@
                 {{ $newPost->title }}
             </h2>
             <div class="flex items-center gap-2">
-                <a href="{{ route('new-posts.edit', $newPost) }}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                    {{ __('Edit') }}
-                </a>
-                <form method="POST" action="{{ route('new-posts.destroy', $newPost) }}" class="inline" onsubmit="return confirm(@json(__('Delete this new post?')))">
-                    @csrf
-                    @method('DELETE')
-                    <x-danger-button type="submit">{{ __('Delete') }}</x-danger-button>
-                </form>
+                @can('update', $newPost)
+                    <a href="{{ route('new-posts.edit', $newPost) }}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                        {{ __('Edit') }}
+                    </a>
+                @endcan
+                
+                @can('delete', $newPost)
+                    <form method="POST" action="{{ route('new-posts.destroy', $newPost) }}" class="inline" onsubmit="return confirm(@json(__('Delete this new post?')))">
+                        @csrf
+                        @method('DELETE')
+                        <x-danger-button type="submit">{{ __('Delete') }}</x-danger-button>
+                    </form>
+                @endcan
                 <a href="{{ route('new-posts.index') }}" class="text-sm text-gray-600 underline hover:text-gray-900 ms-2">{{ __('Back') }}</a>
             </div>
         </div>
