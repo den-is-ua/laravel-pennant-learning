@@ -15,6 +15,6 @@ class NewPost
      */
     public function resolve(User $user): mixed
     {
-        return ($user->id % 100) < config('pennant.new-post-percent');
+        return ($user->id % 100) <= config('pennant.new-post-percent');
     }
 }

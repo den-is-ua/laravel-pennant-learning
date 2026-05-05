@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Pennant\Middleware\EnsureFeaturesAreActive;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +22,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        EnsureFeaturesAreActive::whenInactive(
+            function (Request $request, array $features) {
+                return new Response(status: 403);
+            }
+        );
     }
 }
