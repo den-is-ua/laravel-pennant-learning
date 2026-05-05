@@ -4,6 +4,8 @@ use App\Http\Controllers\NewPostController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Laravel\Pennant\Middleware\EnsureFeaturesAreActive;
+use App\Features\NewPost;
 
 Route::get('/', function () {
     return view('welcome');
@@ -15,7 +17,7 @@ Route::get('/dashboard', function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('posts', PostController::class);
-    Route::resource('new-posts', NewPostController::class);
+    Route::resource('new-posts', NewPostController::class)->middleware(EnsureFeaturesAreActive::using(NewPost::class));
 });
 
 Route::middleware('auth')->group(function () {

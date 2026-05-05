@@ -19,10 +19,12 @@
                     <x-nav-link :href="route('posts.index')" :active="request()->routeIs('posts.*')">
                         {{ __('Posts') }}
                     </x-nav-link>
-
-                    <x-nav-link :href="route('new-posts.index')" :active="request()->routeIs('new-posts.*')">
-                        {{ __('New posts') }}
-                    </x-nav-link>
+                    
+                    @feature(App\Features\NewPost::class)
+                        <x-nav-link :href="route('new-posts.index')" :active="request()->routeIs('new-posts.*')">
+                            {{ __('New posts') }}
+                        </x-nav-link>
+                    @endfeature
                 </div>
             </div>
 

@@ -41,4 +41,6 @@ return [
         ],
 
     ],
+    
+    'new-post-percent' => 1
 ];
